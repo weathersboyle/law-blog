@@ -37,7 +37,17 @@ public class PostsAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        return null;
+
+        PostCellLayout cellLayout;
+        if (view == null) {
+            cellLayout = new PostCellLayout(context);
+        } else {
+            cellLayout = (PostCellLayout) view;
+        }
+
+        cellLayout.configureViews(posts.get(i));
+
+        return cellLayout;
     }
 
 }
