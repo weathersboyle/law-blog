@@ -14,10 +14,12 @@ public class PostsAdapter extends BaseAdapter {
 
     private Context context;
     private List<BlogPost> posts;
+    private PostSelectedListener listener;
 
-    public PostsAdapter(Context context, List<BlogPost> posts) {
+    public PostsAdapter(Context context, List<BlogPost> posts, PostSelectedListener listener) {
         this.context = context;
         this.posts = posts;
+        this.listener = listener;
     }
 
     @Override
@@ -41,6 +43,7 @@ public class PostsAdapter extends BaseAdapter {
         PostCellLayout cellLayout;
         if (view == null) {
             cellLayout = new PostCellLayout(context);
+            cellLayout.setListener(listener);
         } else {
             cellLayout = (PostCellLayout) view;
         }

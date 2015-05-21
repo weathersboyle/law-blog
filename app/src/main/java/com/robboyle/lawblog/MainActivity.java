@@ -2,9 +2,10 @@ package com.robboyle.lawblog;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements PostSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -12,6 +13,11 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
 
         getFragmentManager().beginTransaction().add(R.id.container, new PostsFragment()).commit();
+    }
+
+    @Override
+    public void postSelected(BlogPost selectedPost) {
+        Log.d("feeld", "post selected id: " + selectedPost.getId());
     }
 
 }

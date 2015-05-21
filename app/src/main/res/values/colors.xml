@@ -5,4 +5,7 @@
     <color name="primary_dark">#003D5C</color>
     <color name="accent">#2B2B2B</color>
 
+    <color name="list_item_selected">#20000000</color>
+    <color name="list_item_unselected">#00000000</color>
+
 </resources>

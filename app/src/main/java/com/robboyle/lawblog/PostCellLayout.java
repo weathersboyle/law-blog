@@ -3,6 +3,7 @@ package com.robboyle.lawblog;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,6 +18,7 @@ public class PostCellLayout extends LinearLayout {
     private TextView titleTextView;
 
     private BlogPost post;
+    private PostSelectedListener listener;
 
     public PostCellLayout(Context context) {
         super(context);
@@ -43,10 +45,25 @@ public class PostCellLayout extends LinearLayout {
         setOrientation(HORIZONTAL);
         setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDimensionPixelSize(
                 R.dimen.post_cell_height)));
+        setBackgroundResource(R.drawable.list_item_bg);
 
         LayoutInflater.from(getContext()).inflate(R.layout.post_cell, this, true);
         iconView = (ImageView) findViewById(R.id.icon);
         titleTextView = (TextView) findViewById(R.id.title);
+
+        listener = new PostSelectedListener() {
+            @Override
+            public void postSelected(BlogPost selectedPost) {
+
+            }
+        };
+
+        setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.postSelected(post);
+            }
+        });
     }
 
     public void configureViews(BlogPost post) {
@@ -56,4 +73,8 @@ public class PostCellLayout extends LinearLayout {
         titleTextView.setText(post.getTitle());
     }
 
+    public void setListener(PostSelectedListener listener) {
+        this.listener = listener;
+    }
+    
 }

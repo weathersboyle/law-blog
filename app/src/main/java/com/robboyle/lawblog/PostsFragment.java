@@ -1,6 +1,7 @@
 package com.robboyle.lawblog;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ public class PostsFragment extends Fragment {
 
     private List<BlogPost> posts;
     private PostsAdapter adapter;
+    private PostSelectedListener listener;
 
     public PostsFragment() {
     }
@@ -33,7 +35,7 @@ public class PostsFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         posts = new ArrayList<>();
-        adapter = new PostsAdapter(getActivity(), posts);
+        adapter = new PostsAdapter(getActivity(), posts, listener);
     }
 
     @Override
@@ -45,6 +47,13 @@ public class PostsFragment extends Fragment {
         postsListView.setAdapter(adapter);
 
         return rootView;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        listener = (PostSelectedListener) activity;
     }
 
     @Override
