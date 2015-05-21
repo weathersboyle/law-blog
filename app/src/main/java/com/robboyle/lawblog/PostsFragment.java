@@ -11,6 +11,10 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -29,8 +33,6 @@ public class PostsFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         posts = new ArrayList<>();
-        addDummyPosts();
-
         adapter = new PostsAdapter(getActivity(), posts);
     }
 
@@ -45,13 +47,27 @@ public class PostsFragment extends Fragment {
         return rootView;
     }
 
-    private void addDummyPosts() {
-        String title, body;
-        for (int i = 0; i < 10; i++) {
-            title = "Title " + i;
-            body = "Body" + i;
-            posts.add(new BlogPost(title, body));
-        }
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        fetchPosts();
+    }
+
+    private void fetchPosts() {
+        LearnServiceManager.getLearnService().getPosts(new Callback<List<BlogPost>>() {
+            @Override
+            public void success(List<BlogPost> blogPosts, Response response) {
+                posts.clear();
+                posts.addAll(blogPosts);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
     }
 
 }
