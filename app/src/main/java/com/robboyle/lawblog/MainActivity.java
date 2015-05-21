@@ -11,7 +11,7 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getFragmentManager().beginTransaction().add(R.id.container, new BlogsFragment()).commit();
+        getFragmentManager().beginTransaction().add(R.id.container, new PostsFragment()).commit();
     }
 
 }
